@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+
+# Environment (never commit secrets)
+.env
+.env.*
+!.env.example
+
+# Logs & OS
+npm-debug.log*
+.DS_Store
+Thumbs.db
+
+# Test / coverage
+coverage/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Local QR print batch (PNG assets — keep out of git unless you need them versioned)
+qr-batch/*.png

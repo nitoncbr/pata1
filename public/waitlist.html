@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>P·A·T·A — Your number stays hidden. Anyone can still reach you.</title>
+<meta name="description" content="QR tag for your car and keys. One scan. Anonymous call. No app needed. Your number stays hidden. Always."/>
+
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://pataqr.com/waitlist"/>
+<meta property="og:title" content="P·A·T·A — Your number stays hidden. Anyone can still reach you."/>
+<meta property="og:description" content="QR tag for your car and keys. One scan. Anonymous call. No app needed."/>
+<meta property="og:image" content="https://pataqr.com/og-image.jpg"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="P·A·T·A — Your number stays hidden. Anyone can still reach you."/>
+<meta name="twitter:description" content="QR tag for your car and keys. One scan. Anonymous call. No app needed."/>
+<meta name="twitter:image" content="https://pataqr.com/og-image.jpg"/>
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%2309090C'/><text x='50%25' y='54%25' font-family='serif' font-size='15' font-weight='800' fill='%23C9973A' text-anchor='middle' dominant-baseline='central'>P</text></svg>"/>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Cormorant+Garamond:ital,wght@0,700;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+body{background:#09090C;color:#F0EDE6;font-family:'Inter',system-ui,-apple-system,sans-serif;min-height:100vh;overflow-x:hidden;}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
+
+:root{
+  --gold:#C9973A;
+  --gold-bright:#E8B84B;
+  --gold-dim:rgba(201,151,58,0.12);
+  --border:rgba(255,255,255,0.07);
+  --border-gold:rgba(201,151,58,0.22);
+  --surface:rgba(255,255,255,0.03);
+  --bright:#F0EDE6;
+  --mid:rgba(240,237,230,0.6);
+  --dim:rgba(240,237,230,0.38);
+  --faint:rgba(240,237,230,0.18);
+  --success:#10B981;
+  --error:#EF4444;
+  --wa:#25D366;
+  --max:560px;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes rise{
+  from{opacity:0;transform:translateY(14px);}
+  to{opacity:1;transform:translateY(0);}
+}
+@keyframes pop{
+  0%{transform:scale(0.8);opacity:0;}
+  60%{transform:scale(1.08);}
+  100%{transform:scale(1);opacity:1;}
+}
+@keyframes drawCheck{to{stroke-dashoffset:0;}}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  height:64px;padding:0 40px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(9,9,12,0.88);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+.nav-brand{display:flex;flex-direction:column;gap:3px;text-decoration:none;}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:13px;letter-spacing:5px;color:var(--bright);line-height:1;}
+.nav-logo em{font-style:normal;color:var(--gold);}
+.nav-sub{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--mid);line-height:1;}
+@media(max-width:480px){
+  nav{padding:0 20px;height:56px;}
+  .nav-sub{font-size:8px;letter-spacing:1.5px;}
+}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:120px 24px 100px;
+  text-align:center;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;
+  top:38%;left:50%;transform:translate(-50%,-50%);
+  width:800px;height:600px;
+  background:radial-gradient(ellipse,rgba(201,151,58,0.055) 0%,transparent 65%);
+  pointer-events:none;z-index:0;
+}
+.hero::after{
+  content:'';position:absolute;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.018'/%3E%3C/svg%3E");
+  background-size:256px;pointer-events:none;z-index:0;
+}
+.hero>*{position:relative;z-index:1;}
+
+/* Eyebrow */
+.eyebrow{
+  display:inline-flex;align-items:center;gap:9px;
+  margin-bottom:38px;
+  padding:5px 14px 5px 7px;
+  border:1px solid var(--border);border-radius:999px;
+  background:var(--surface);
+  text-decoration:none;
+  transition:border-color .2s,background .2s;
+  animation:rise .5s ease .05s both;
+}
+.eyebrow:hover{border-color:rgba(255,255,255,0.12);background:rgba(255,255,255,0.05);}
+.ig-dot{
+  width:20px;height:20px;border-radius:5px;flex-shrink:0;
+  background:linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+  display:flex;align-items:center;justify-content:center;
+}
+.eyebrow-text{font-size:11px;color:var(--mid);letter-spacing:0.3px;}
+.eyebrow-sep{color:var(--faint);}
+.eyebrow-tag{font-size:11px;color:var(--dim);}
+
+/* Headline */
+.headline{
+  font-family:'Cormorant Garamond',serif;font-weight:700;
+  font-size:clamp(44px,7.8vw,88px);
+  line-height:1.01;letter-spacing:-0.5px;
+  color:var(--bright);max-width:840px;
+  margin-bottom:20px;
+  animation:rise .65s ease .18s both;
+}
+.headline em{font-style:italic;color:var(--gold);}
+
+/* Subline */
+.subline{
+  font-size:clamp(15px,1.8vw,17px);
+  color:rgba(240,237,230,0.72);font-weight:400;line-height:1.75;
+  max-width:380px;margin:0 auto 36px;
+  animation:rise .55s ease .3s both;
+}
+
+/* Form */
+#stateForm{
+  animation:rise .5s ease .42s both;
+  display:flex;flex-direction:column;
+  align-items:center;
+  width:100%;max-width:var(--max);
+}
+.form-pill{
+  display:flex;width:100%;max-width:430px;
+  border:1.5px solid rgba(255,255,255,0.1);
+  border-radius:999px;overflow:hidden;
+  background:rgba(255,255,255,0.035);
+  transition:border-color .25s,box-shadow .25s;
+}
+.form-pill:focus-within{
+  border-color:rgba(201,151,58,0.38);
+  box-shadow:0 0 0 4px rgba(201,151,58,0.06);
+}
+.form-pill input{
+  flex:1;padding:14px 20px;
+  background:transparent;border:none;outline:none;
+  font-size:14px;color:var(--bright);
+  font-family:'Inter',sans-serif;min-width:0;
+}
+.form-pill input::placeholder{color:var(--dim);}
+.form-pill input.valid{border-right:2px solid var(--success);}
+.form-pill input.invalid{border-right:2px solid var(--error);}
+.form-pill button{
+  padding:11px 22px;margin:4px;
+  background:var(--gold);border:none;color:#09090C;
+  font-family:'Inter',sans-serif;font-weight:600;
+  font-size:12px;letter-spacing:0.2px;
+  border-radius:999px;cursor:pointer;
+  transition:background .2s,transform .1s;
+  white-space:nowrap;flex-shrink:0;
+}
+.form-pill button:hover{background:var(--gold-bright);}
+.form-pill button:active{transform:scale(0.97);}
+.form-pill button:disabled{opacity:.45;cursor:not-allowed;}
+.form-err{
+  margin-top:10px;font-size:12px;
+  color:var(--error);text-align:center;display:none;
+}
+
+/* Trust chips */
+.trust-row{
+  display:flex;gap:6px;flex-wrap:wrap;
+  justify-content:center;margin-top:16px;
+}
+.trust-chip{
+  display:flex;align-items:center;gap:6px;
+  padding:6px 13px;
+  border:1px solid rgba(255,255,255,0.1);border-radius:999px;
+  font-size:12px;color:rgba(240,237,230,0.62);
+  background:rgba(255,255,255,0.04);
+}
+.trust-chip svg{flex-shrink:0;opacity:.7;}
+
+/* Live count */
+.live-count{
+  margin-top:20px;
+  font-size:12px;color:var(--dim);
+  letter-spacing:0.3px;
+  animation:rise .4s ease .58s both;
+}
+.live-count strong{color:var(--mid);}
+
+/* ── POST-SIGNUP CARD ── */
+#stateCard{display:none;width:100%;max-width:var(--max);text-align:left;}
+
+.celebrate{
+  display:flex;justify-content:center;
+  margin-bottom:20px;
+  animation:pop .45s ease both;
+}
+.celebrate svg #checkPath{
+  stroke-dasharray:36;stroke-dashoffset:36;
+  animation:drawCheck .4s ease .1s forwards;
+}
+
+.pos-label{
+  font-size:10px;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--dim);margin-bottom:8px;
+}
+.pos-number{
+  font-family:'Cormorant Garamond',serif;font-weight:700;
+  font-size:clamp(52px,8vw,80px);line-height:1;
+  color:var(--bright);margin-bottom:6px;
+}
+.pos-number em{font-style:normal;color:var(--gold);}
+.pos-sub{font-size:13px;color:var(--mid);margin-bottom:28px;}
+
+/* Progress bar */
+.prog-wrap{margin-bottom:28px;}
+.prog-meta{
+  display:flex;justify-content:space-between;
+  font-size:10px;color:var(--dim);
+  letter-spacing:0.8px;text-transform:uppercase;
+  margin-bottom:8px;
+}
+.prog-track{
+  height:3px;background:rgba(255,255,255,0.07);
+  border-radius:999px;overflow:hidden;
+}
+.prog-fill{
+  height:100%;background:var(--gold);
+  border-radius:999px;transition:width 1s ease;
+}
+
+/* Referral section */
+.ref-label{
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--dim);margin-bottom:10px;
+}
+.ref-mechanic{
+  font-size:13px;color:var(--mid);line-height:1.6;margin-bottom:18px;
+}
+.ref-mechanic strong{color:var(--bright);}
+
+.ref-link-row{
+  display:flex;gap:8px;margin-bottom:12px;
+}
+.ref-link-input{
+  flex:1;padding:10px 14px;
+  background:var(--surface);
+  border:1px solid var(--border);border-radius:10px;
+  font-size:12px;color:var(--mid);
+  font-family:'Inter',sans-serif;
+  outline:none;cursor:default;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.ref-copy-btn{
+  padding:10px 16px;
+  background:transparent;
+  border:1px solid var(--border);border-radius:10px;
+  font-size:12px;font-weight:500;color:var(--mid);
+  font-family:'Inter',sans-serif;
+  cursor:pointer;transition:border-color .2s,color .2s;
+  white-space:nowrap;
+}
+.ref-copy-btn:hover{border-color:rgba(255,255,255,0.16);color:var(--bright);}
+.ref-copy-btn.copied{border-color:var(--success);color:var(--success);}
+
+.wa-btn{
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  width:100%;padding:13px 20px;
+  background:rgba(37,211,102,0.1);
+  border:1px solid rgba(37,211,102,0.25);
+  border-radius:12px;
+  font-size:13px;font-weight:500;color:#25D366;
+  font-family:'Inter',sans-serif;
+  text-decoration:none;
+  transition:background .2s,border-color .2s;
+}
+.wa-btn:hover{background:rgba(37,211,102,0.16);border-color:rgba(37,211,102,0.35);}
+
+/* Check rank later */
+.rank-hint{
+  margin-top:22px;padding-top:18px;
+  border-top:1px solid var(--border);
+  text-align:left;
+}
+.rank-hint-title{
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--dim);margin-bottom:8px;font-weight:600;
+}
+.rank-hint-body{
+  font-size:12px;color:rgba(240,237,230,0.55);line-height:1.55;margin-bottom:10px;font-weight:400;
+}
+.rank-hint-body code{
+  font-size:11px;background:rgba(255,255,255,0.06);padding:2px 6px;border-radius:4px;color:var(--mid);
+}
+.rank-hint-code{
+  font-size:11px;font-family:ui-monospace,monospace;
+  color:rgba(240,237,230,0.45);word-break:break-all;line-height:1.45;
+  padding:10px 12px;background:rgba(255,255,255,0.03);
+  border:1px solid var(--border);border-radius:10px;
+}
+
+.referral-fair{
+  font-size:11px;line-height:1.5;color:rgba(240,237,230,0.38);
+  margin:12px 0 0;font-weight:400;max-width:36em;margin-left:auto;margin-right:auto;
+}
+.referral-blocked-note{
+  font-size:12px;line-height:1.5;color:rgba(239,68,68,0.85);
+  margin:14px 0 0;padding:12px 14px;
+  background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.22);
+  border-radius:12px;text-align:left;max-width:36em;margin-left:auto;margin-right:auto;
+}
+
+/* ── HOW IT WORKS ── */
+.how{padding:100px 24px;}
+.section-inner{max-width:900px;margin:0 auto;}
+.section-label{
+  font-size:9px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--dim);margin-bottom:16px;
+}
+.section-title{
+  font-family:'Cormorant Garamond',serif;font-weight:700;
+  font-size:clamp(28px,4vw,44px);
+  color:var(--bright);line-height:1.08;
+  margin-bottom:56px;
+}
+.section-title em{font-style:italic;color:var(--gold);}
+
+.steps{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:0;
+}
+.step{
+  padding-right:32px;
+  border-right:1px solid var(--border);
+  padding-left:32px;
+}
+.step:first-child{padding-left:0;}
+.step:last-child{border-right:none;}
+
+.step-num{
+  font-family:'Syne',sans-serif;font-weight:700;
+  font-size:11px;letter-spacing:2px;
+  color:rgba(201,151,58,0.45);
+  margin-bottom:20px;
+}
+.step-icon{margin-bottom:16px;}
+.step-head{
+  font-size:15px;font-weight:500;
+  color:var(--bright);margin-bottom:8px;line-height:1.3;
+}
+.step-body{
+  font-size:14px;color:rgba(240,237,230,0.62);
+  font-weight:400;line-height:1.7;
+}
+
+@media(max-width:640px){
+  .steps{grid-template-columns:1fr;gap:36px;}
+  .step{padding:0 0 36px 0;border-right:none;border-bottom:1px solid var(--border);}
+  .step:last-child{border-bottom:none;padding-bottom:0;}
+  .step:first-child{padding-left:0;}
+}
+
+/* ── PRODUCTS ── */
+.products{padding:0 24px 100px;}
+.products-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+.product-card{
+  padding:36px 28px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:20px;
+  transition:border-color .25s;
+}
+.product-card:hover{border-color:rgba(255,255,255,0.12);}
+.product-illustration{
+  margin-bottom:28px;
+  display:flex;align-items:center;justify-content:center;
+  min-height:140px;
+}
+.product-type{
+  font-size:9px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--dim);margin-bottom:8px;
+}
+.product-name{
+  font-family:'Cormorant Garamond',serif;font-weight:700;
+  font-size:clamp(22px,3vw,28px);color:var(--bright);
+  margin-bottom:12px;line-height:1.1;
+}
+.product-specs{display:flex;flex-direction:column;gap:5px;}
+.product-spec{
+  display:flex;align-items:center;gap:8px;
+  font-size:13px;color:rgba(240,237,230,0.58);
+}
+.product-spec::before{
+  content:'';width:3px;height:3px;border-radius:50%;
+  background:rgba(201,151,58,0.45);flex-shrink:0;
+}
+@media(max-width:580px){.products-grid{grid-template-columns:1fr;}}
+
+/* ── THE STAKE ── */
+.stake{padding:0 24px 100px;}
+.stake-inner{
+  max-width:900px;margin:0 auto;
+  padding:56px 52px;
+  border:1px solid var(--border-gold);
+  border-radius:24px;
+  background:rgba(201,151,58,0.03);
+  display:flex;align-items:center;
+  justify-content:space-between;
+  gap:48px;
+}
+.stake-eyebrow{
+  font-size:9px;letter-spacing:3px;text-transform:uppercase;
+  color:rgba(201,151,58,0.55);margin-bottom:14px;
+}
+.stake-heading{
+  font-family:'Cormorant Garamond',serif;font-weight:700;
+  font-size:clamp(30px,4vw,48px);
+  color:var(--bright);line-height:1.05;margin-bottom:6px;
+}
+.stake-heading em{font-style:italic;color:var(--gold);}
+.stake-sub{
+  font-size:14px;color:rgba(240,237,230,0.62);font-weight:400;
+  line-height:1.65;margin-top:12px;max-width:320px;
+}
+.stake-action{flex-shrink:0;text-align:center;}
+.stake-counter{
+  font-family:'Cormorant Garamond',serif;font-weight:700;
+  font-size:clamp(44px,6vw,68px);color:var(--gold);line-height:1;
+  margin-bottom:4px;
+}
+.stake-counter-label{
+  font-size:10px;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--dim);margin-bottom:20px;
+}
+.stake-prog-track{
+  height:2px;background:rgba(255,255,255,0.06);
+  border-radius:999px;overflow:hidden;width:140px;
+  margin:0 auto 20px;
+}
+.stake-prog-fill{
+  height:100%;background:var(--gold);
+  border-radius:999px;transition:width 1s ease;
+}
+.stake-cta{
+  display:inline-block;padding:11px 24px;
+  background:var(--gold);color:#09090C;
+  font-family:'Inter',sans-serif;font-weight:600;
+  font-size:12px;letter-spacing:0.2px;
+  border-radius:999px;text-decoration:none;
+  transition:background .2s;cursor:pointer;border:none;
+}
+.stake-cta:hover{background:var(--gold-bright);}
+@media(max-width:700px){
+  .stake-inner{flex-direction:column;padding:36px 28px;gap:32px;}
+  .stake-action{width:100%;}
+  .stake-prog-track{width:100%;}
+}
+
+/* ── FOOTER ── */
+footer{
+  padding:40px 24px 48px;
+  border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.footer-brand{
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:12px;letter-spacing:4px;color:var(--dim);
+  text-decoration:none;
+}
+.footer-brand em{font-style:normal;color:var(--gold);}
+.footer-right{display:flex;align-items:center;gap:20px;}
+.footer-link{
+  font-size:12px;color:var(--dim);text-decoration:none;
+  transition:color .2s;letter-spacing:0.3px;
+}
+.footer-link:hover{color:var(--mid);}
+@media(max-width:480px){footer{flex-direction:column;gap:16px;text-align:center;}}
+
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-brand" aria-label="P·A·T·A Home">
+    <span class="nav-logo">P·<em>A</em>·T·A</span>
+    <span class="nav-sub">Protect And Trace Anonymously</span>
+  </a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+
+  <!-- STATE 1: FORM -->
+  <div id="stateForm">
+
+    <a href="https://instagram.com/p.a.t.a.q.r" target="_blank" rel="noopener" class="eyebrow" aria-label="Follow PATA on Instagram">
+      <span class="ig-dot" aria-hidden="true">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="18" cy="6" r="1" fill="white" stroke="none"/>
+        </svg>
+      </span>
+      <span class="eyebrow-text">@p.a.t.a.q.r</span>
+      <span class="eyebrow-sep" aria-hidden="true">·</span>
+      <span class="eyebrow-tag">Launching in India</span>
+    </a>
+
+    <h1 class="headline">
+      Your number stays hidden.<br>
+      Anyone can still <em>reach you.</em>
+    </h1>
+
+    <p class="subline">
+      QR tag for your car and keys.<br>
+      One scan. Anonymous call. No app needed.
+    </p>
+
+    <form id="waitlistForm" novalidate>
+      <div class="form-pill">
+        <label for="emailInput" class="sr-only">Email address</label>
+        <input
+          type="email"
+          id="emailInput"
+          name="email"
+          placeholder="your@email.com"
+          autocomplete="email"
+          inputmode="email"
+          required
+        />
+        <button type="submit" id="submitBtn">Claim My Spot</button>
+      </div>
+      <p class="form-err" id="formErr" role="alert"></p>
+    </form>
+
+    <div class="trust-row">
+      <span class="trust-chip">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Number never revealed
+      </span>
+      <span class="trust-chip">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18" stroke-width="2"/></svg>
+        No app needed
+      </span>
+      <span class="trust-chip">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+        Free for top 1,000
+      </span>
+    </div>
+
+    <p class="live-count" id="liveCount" aria-live="polite"></p>
+
+  </div>
+
+  <!-- STATE 2: POSITION CARD -->
+  <div id="stateCard">
+
+    <div class="celebrate" aria-hidden="true">
+      <svg width="40" height="40" viewBox="0 0 40 40">
+        <circle cx="20" cy="20" r="18" fill="rgba(16,185,129,0.12)" stroke="#10B981" stroke-width="1.5"/>
+        <polyline id="checkPath" points="12,20 18,26 29,14"
+          fill="none" stroke="#10B981" stroke-width="2.2"
+          stroke-linecap="round" stroke-linejoin="round"
+          stroke-dasharray="36" stroke-dashoffset="36"/>
+      </svg>
+    </div>
+
+    <p class="pos-label">Your position</p>
+    <div class="pos-number"><em>#</em><span id="posNum">—</span></div>
+    <p class="pos-sub">in line for P·A·T·A</p>
+
+    <div class="prog-wrap">
+      <div class="prog-meta">
+        <span>Waitlist progress</span>
+        <span id="progLabel">— / 1,000</span>
+      </div>
+      <div class="prog-track">
+        <div class="prog-fill" id="progFill" style="width:0%"></div>
+      </div>
+    </div>
+
+    <p class="ref-label">Move up faster</p>
+    <p class="ref-mechanic">
+      Share your link. Each friend who joins moves you up <strong>5 spots.</strong><br>
+      The <strong>top 1,000</strong> get both products — sticker + tag — completely free.
+    </p>
+    <p class="referral-fair" id="referralFairNote">
+      One spot per person. Referral rewards count when a friend joins from their own connection — not extra emails from the same network or Gmail tricks (+tags, dots).
+    </p>
+    <p class="referral-blocked-note" id="referralBlockedNote" role="status" style="display:none">
+      You're on the list. Referral credit from this link wasn't applied — it looks like the same connection as the person who shared it. Ask a friend to join from their own phone or network to move up.
+    </p>
+
+    <div class="ref-link-row">
+      <input type="text" class="ref-link-input" id="refLinkInput" readonly aria-label="Your referral link"/>
+      <button class="ref-copy-btn" id="copyBtn" aria-label="Copy referral link">Copy</button>
+    </div>
+
+    <a href="#" id="waShareBtn" class="wa-btn" target="_blank" rel="noopener" aria-label="Share on WhatsApp">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="#25D366" aria-hidden="true">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+      </svg>
+      Share on WhatsApp
+    </a>
+
+    <div class="rank-hint" id="rankHint" aria-live="polite">
+      <p class="rank-hint-title">Check your rank anytime</p>
+      <p class="rank-hint-body">
+        Bookmark this page or save your referral link above (same link is in your welcome email).
+        Open it later — your position refreshes when you return.
+      </p>
+      <p class="rank-hint-body">
+        Or open this in your browser (use the same code as in <code>?ref=</code> above):
+      </p>
+      <p class="rank-hint-code" id="rankApiUrl">—</p>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <div class="section-inner">
+    <p class="section-label">How it works</p>
+    <h2 class="section-title">One scan. <em>That's all it takes.</em></h2>
+    <div class="steps">
+      <div class="step">
+        <p class="step-num">01</p>
+        <div class="step-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(201,151,58,0.6)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+            <rect x="3" y="14" width="7" height="7"/>
+            <path d="M14 14h3v3h-3z"/><path d="M17 17h4"/><path d="M17 14v4"/>
+          </svg>
+        </div>
+        <p class="step-head">Your QR tag, placed</p>
+        <p class="step-body">Sticker inside your windshield. Tag on your keys. That's the setup. Done.</p>
+      </div>
+      <div class="step">
+        <p class="step-num">02</p>
+        <div class="step-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(201,151,58,0.6)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="5" y="2" width="14" height="20" rx="2"/>
+            <line x1="12" y1="18" x2="12.01" y2="18" stroke-width="2"/>
+          </svg>
+        </div>
+        <p class="step-head">Someone scans</p>
+        <p class="step-body">No app. No download. They open their camera, scan the QR, and tap.</p>
+      </div>
+      <div class="step">
+        <p class="step-num">03</p>
+        <div class="step-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(201,151,58,0.6)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <p class="step-head">Anonymous call connects</p>
+        <p class="step-body">They reach you. Your number is never shown, never stored, never shared.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- PRODUCTS -->
+<section class="products">
+  <div class="section-inner">
+    <p class="section-label">The products</p>
+    <h2 class="section-title">Two products. <em>One promise.</em></h2>
+    <div class="products-grid">
+
+      <!-- Car Sticker -->
+      <div class="product-card">
+        <div class="product-illustration" aria-hidden="true">
+          <svg width="130" height="130" viewBox="0 0 130 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="1" y="1" width="128" height="128" rx="8" fill="#09090C" stroke="rgba(201,151,58,0.3)" stroke-width="1.5"/>
+            <text x="65" y="17" font-family="Inter,sans-serif" font-size="7" fill="rgba(201,151,58,0.7)" text-anchor="middle" letter-spacing="0.8">This QR calls the owner.</text>
+            <rect x="22" y="24" width="24" height="24" rx="2" fill="none" stroke="rgba(240,237,230,0.7)" stroke-width="1.5"/>
+            <rect x="26" y="28" width="16" height="16" rx="1" fill="rgba(240,237,230,0.15)"/>
+            <rect x="29" y="31" width="10" height="10" rx="0.5" fill="rgba(240,237,230,0.7)"/>
+            <rect x="84" y="24" width="24" height="24" rx="2" fill="none" stroke="rgba(240,237,230,0.7)" stroke-width="1.5"/>
+            <rect x="88" y="28" width="16" height="16" rx="1" fill="rgba(240,237,230,0.15)"/>
+            <rect x="91" y="31" width="10" height="10" rx="0.5" fill="rgba(240,237,230,0.7)"/>
+            <rect x="22" y="82" width="24" height="24" rx="2" fill="none" stroke="rgba(240,237,230,0.7)" stroke-width="1.5"/>
+            <rect x="26" y="86" width="16" height="16" rx="1" fill="rgba(240,237,230,0.15)"/>
+            <rect x="29" y="89" width="10" height="10" rx="0.5" fill="rgba(240,237,230,0.7)"/>
+            <g fill="rgba(240,237,230,0.5)">
+              <rect x="52" y="24" width="4" height="4" rx="0.5"/><rect x="58" y="24" width="4" height="4" rx="0.5"/>
+              <rect x="64" y="24" width="4" height="4" rx="0.5"/><rect x="70" y="24" width="4" height="4" rx="0.5"/>
+              <rect x="52" y="30" width="4" height="4" rx="0.5"/><rect x="64" y="30" width="4" height="4" rx="0.5"/>
+              <rect x="52" y="36" width="4" height="4" rx="0.5"/><rect x="58" y="36" width="4" height="4" rx="0.5"/>
+              <rect x="70" y="36" width="4" height="4" rx="0.5"/>
+              <rect x="52" y="42" width="4" height="4" rx="0.5"/><rect x="64" y="42" width="4" height="4" rx="0.5"/>
+              <rect x="70" y="42" width="4" height="4" rx="0.5"/>
+              <rect x="84" y="52" width="4" height="4" rx="0.5"/><rect x="90" y="52" width="4" height="4" rx="0.5"/>
+              <rect x="96" y="52" width="4" height="4" rx="0.5"/><rect x="102" y="52" width="4" height="4" rx="0.5"/>
+              <rect x="84" y="58" width="4" height="4" rx="0.5"/><rect x="96" y="58" width="4" height="4" rx="0.5"/>
+              <rect x="84" y="64" width="4" height="4" rx="0.5"/><rect x="90" y="64" width="4" height="4" rx="0.5"/>
+              <rect x="102" y="64" width="4" height="4" rx="0.5"/>
+              <rect x="84" y="70" width="4" height="4" rx="0.5"/><rect x="96" y="70" width="4" height="4" rx="0.5"/>
+              <rect x="22" y="52" width="4" height="4" rx="0.5"/><rect x="28" y="52" width="4" height="4" rx="0.5"/>
+              <rect x="34" y="52" width="4" height="4" rx="0.5"/><rect x="40" y="52" width="4" height="4" rx="0.5"/>
+              <rect x="22" y="58" width="4" height="4" rx="0.5"/><rect x="34" y="58" width="4" height="4" rx="0.5"/>
+              <rect x="22" y="64" width="4" height="4" rx="0.5"/><rect x="28" y="64" width="4" height="4" rx="0.5"/>
+              <rect x="40" y="64" width="4" height="4" rx="0.5"/>
+              <rect x="22" y="70" width="4" height="4" rx="0.5"/><rect x="34" y="70" width="4" height="4" rx="0.5"/>
+              <rect x="52" y="52" width="4" height="4" rx="0.5"/><rect x="58" y="52" width="4" height="4" rx="0.5"/>
+              <rect x="64" y="52" width="4" height="4" rx="0.5"/><rect x="70" y="52" width="4" height="4" rx="0.5"/>
+              <rect x="52" y="58" width="4" height="4" rx="0.5"/><rect x="70" y="58" width="4" height="4" rx="0.5"/>
+              <rect x="52" y="64" width="4" height="4" rx="0.5"/><rect x="58" y="64" width="4" height="4" rx="0.5"/>
+              <rect x="64" y="64" width="4" height="4" rx="0.5"/>
+              <rect x="52" y="70" width="4" height="4" rx="0.5"/><rect x="58" y="70" width="4" height="4" rx="0.5"/>
+              <rect x="52" y="82" width="4" height="4" rx="0.5"/><rect x="64" y="82" width="4" height="4" rx="0.5"/>
+              <rect x="70" y="82" width="4" height="4" rx="0.5"/>
+              <rect x="52" y="88" width="4" height="4" rx="0.5"/><rect x="58" y="88" width="4" height="4" rx="0.5"/>
+              <rect x="64" y="88" width="4" height="4" rx="0.5"/>
+              <rect x="52" y="94" width="4" height="4" rx="0.5"/><rect x="70" y="94" width="4" height="4" rx="0.5"/>
+              <rect x="52" y="100" width="4" height="4" rx="0.5"/><rect x="58" y="100" width="4" height="4" rx="0.5"/>
+              <rect x="64" y="100" width="4" height="4" rx="0.5"/>
+              <rect x="84" y="82" width="4" height="4" rx="0.5"/><rect x="90" y="82" width="4" height="4" rx="0.5"/>
+              <rect x="96" y="82" width="4" height="4" rx="0.5"/>
+              <rect x="84" y="88" width="4" height="4" rx="0.5"/><rect x="102" y="88" width="4" height="4" rx="0.5"/>
+              <rect x="90" y="94" width="4" height="4" rx="0.5"/>
+              <rect x="84" y="100" width="4" height="4" rx="0.5"/><rect x="96" y="100" width="4" height="4" rx="0.5"/>
+            </g>
+            <text x="65" y="120" font-family="Syne,sans-serif" font-size="7" font-weight="800" fill="rgba(201,151,58,0.5)" text-anchor="middle" letter-spacing="3">P·A·T·A</text>
+          </svg>
+        </div>
+        <p class="product-type">Product 01</p>
+        <h3 class="product-name">Car Sticker</h3>
+        <div class="product-specs">
+          <span class="product-spec">8 × 8 cm</span>
+          <span class="product-spec">UV-resistant vinyl</span>
+          <span class="product-spec">Inside windshield, bottom right</span>
+        </div>
+      </div>
+
+      <!-- Key Tag -->
+      <div class="product-card">
+        <div class="product-illustration" aria-hidden="true">
+          <svg width="88" height="138" viewBox="0 0 88 138" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="1" y="1" width="86" height="136" rx="8" fill="#09090C" stroke="rgba(201,151,58,0.3)" stroke-width="1.5"/>
+            <circle cx="44" cy="12" r="4.5" fill="none" stroke="rgba(201,151,58,0.4)" stroke-width="1.5"/>
+            <text x="44" y="30" font-family="Syne,sans-serif" font-size="7" font-weight="800" fill="rgba(201,151,58,0.7)" text-anchor="middle" letter-spacing="2.5">P·A·T·A</text>
+            <text x="44" y="41" font-family="Inter,sans-serif" font-size="5.5" fill="rgba(240,237,230,0.35)" text-anchor="middle" letter-spacing="0.5">Scan to reach the owner</text>
+            <rect x="14" y="50" width="16" height="16" rx="1.5" fill="none" stroke="rgba(240,237,230,0.6)" stroke-width="1.2"/>
+            <rect x="17" y="53" width="10" height="10" rx="0.5" fill="rgba(240,237,230,0.12)"/>
+            <rect x="19.5" y="55.5" width="5" height="5" rx="0.3" fill="rgba(240,237,230,0.6)"/>
+            <rect x="58" y="50" width="16" height="16" rx="1.5" fill="none" stroke="rgba(240,237,230,0.6)" stroke-width="1.2"/>
+            <rect x="61" y="53" width="10" height="10" rx="0.5" fill="rgba(240,237,230,0.12)"/>
+            <rect x="63.5" y="55.5" width="5" height="5" rx="0.3" fill="rgba(240,237,230,0.6)"/>
+            <rect x="14" y="82" width="16" height="16" rx="1.5" fill="none" stroke="rgba(240,237,230,0.6)" stroke-width="1.2"/>
+            <rect x="17" y="85" width="10" height="10" rx="0.5" fill="rgba(240,237,230,0.12)"/>
+            <rect x="19.5" y="87.5" width="5" height="5" rx="0.3" fill="rgba(240,237,230,0.6)"/>
+            <g fill="rgba(240,237,230,0.45)">
+              <rect x="34" y="50" width="3" height="3" rx="0.3"/><rect x="38" y="50" width="3" height="3" rx="0.3"/>
+              <rect x="42" y="50" width="3" height="3" rx="0.3"/><rect x="50" y="50" width="3" height="3" rx="0.3"/>
+              <rect x="54" y="50" width="3" height="3" rx="0.3"/>
+              <rect x="34" y="54" width="3" height="3" rx="0.3"/><rect x="42" y="54" width="3" height="3" rx="0.3"/>
+              <rect x="50" y="54" width="3" height="3" rx="0.3"/>
+              <rect x="34" y="58" width="3" height="3" rx="0.3"/><rect x="38" y="58" width="3" height="3" rx="0.3"/>
+              <rect x="46" y="58" width="3" height="3" rx="0.3"/><rect x="54" y="58" width="3" height="3" rx="0.3"/>
+              <rect x="34" y="62" width="3" height="3" rx="0.3"/><rect x="46" y="62" width="3" height="3" rx="0.3"/>
+              <rect x="34" y="66" width="3" height="3" rx="0.3"/><rect x="38" y="66" width="3" height="3" rx="0.3"/>
+              <rect x="42" y="66" width="3" height="3" rx="0.3"/>
+              <rect x="34" y="82" width="3" height="3" rx="0.3"/><rect x="38" y="82" width="3" height="3" rx="0.3"/>
+              <rect x="46" y="82" width="3" height="3" rx="0.3"/><rect x="50" y="82" width="3" height="3" rx="0.3"/>
+              <rect x="54" y="82" width="3" height="3" rx="0.3"/>
+              <rect x="34" y="86" width="3" height="3" rx="0.3"/><rect x="42" y="86" width="3" height="3" rx="0.3"/>
+              <rect x="34" y="90" width="3" height="3" rx="0.3"/><rect x="46" y="90" width="3" height="3" rx="0.3"/>
+              <rect x="34" y="94" width="3" height="3" rx="0.3"/><rect x="38" y="94" width="3" height="3" rx="0.3"/>
+              <rect x="50" y="86" width="3" height="3" rx="0.3"/><rect x="54" y="90" width="3" height="3" rx="0.3"/>
+              <rect x="50" y="94" width="3" height="3" rx="0.3"/><rect x="54" y="94" width="3" height="3" rx="0.3"/>
+              <rect x="58" y="70" width="3" height="3" rx="0.3"/><rect x="62" y="70" width="3" height="3" rx="0.3"/>
+              <rect x="66" y="70" width="3" height="3" rx="0.3"/><rect x="70" y="70" width="3" height="3" rx="0.3"/>
+              <rect x="58" y="74" width="3" height="3" rx="0.3"/><rect x="66" y="74" width="3" height="3" rx="0.3"/>
+              <rect x="14" y="70" width="3" height="3" rx="0.3"/><rect x="18" y="70" width="3" height="3" rx="0.3"/>
+              <rect x="22" y="70" width="3" height="3" rx="0.3"/><rect x="26" y="70" width="3" height="3" rx="0.3"/>
+              <rect x="14" y="74" width="3" height="3" rx="0.3"/><rect x="22" y="74" width="3" height="3" rx="0.3"/>
+              <rect x="30" y="70" width="3" height="3" rx="0.3"/><rect x="30" y="74" width="3" height="3" rx="0.3"/>
+              <rect x="34" y="70" width="3" height="3" rx="0.3"/><rect x="38" y="74" width="3" height="3" rx="0.3"/>
+              <rect x="46" y="70" width="3" height="3" rx="0.3"/><rect x="42" y="74" width="3" height="3" rx="0.3"/>
+            </g>
+            <text x="44" y="118" font-family="Inter,sans-serif" font-size="5" fill="rgba(240,237,230,0.25)" text-anchor="middle" letter-spacing="0.8">pataqr.com</text>
+            <circle cx="44" cy="12" r="7" fill="none" stroke="rgba(201,151,58,0.2)" stroke-width="1" stroke-dasharray="3 2"/>
+          </svg>
+        </div>
+        <p class="product-type">Product 02</p>
+        <h3 class="product-name">Smart Key Tag</h3>
+        <div class="product-specs">
+          <span class="product-spec">35 × 55 mm</span>
+          <span class="product-spec">Black acrylic, laser engraved</span>
+          <span class="product-spec">Silver split ring included</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- THE STAKE -->
+<section class="stake">
+  <div class="stake-inner">
+    <div class="stake-text">
+      <p class="stake-eyebrow">Launch offer</p>
+      <h2 class="stake-heading">The top 1,000 get<br>both products. <em>Free.</em></h2>
+      <p class="stake-sub">
+        Sticker and tag, shipped to you at no charge.
+        Refer friends to move up the list — each referral
+        moves you up 5 spots.
+      </p>
+    </div>
+    <div class="stake-action">
+      <div class="stake-counter" id="stakeCount">—</div>
+      <p class="stake-counter-label">waiting so far</p>
+      <div class="stake-prog-track">
+        <div class="stake-prog-fill" id="stakeProgFill" style="width:0%"></div>
+      </div>
+      <button class="stake-cta" onclick="document.getElementById('emailInput').focus();window.scrollTo({top:0,behavior:'smooth'});">
+        Claim My Spot
+      </button>
+    </div>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+  <a href="/" class="footer-brand" aria-label="P·A·T·A">P·<em>A</em>·T·A</a>
+  <div class="footer-right">
+    <a href="https://instagram.com/p.a.t.a.q.r" target="_blank" rel="noopener" class="footer-link">@p.a.t.a.q.r</a>
+    <span class="footer-link" style="color:var(--faint);">pataqr.com</span>
+  </div>
+</footer>
+
+
+<script>
+(function(){
+  'use strict';
+
+  var API_BASE = '';
+
+  var form       = document.getElementById('waitlistForm');
+  var emailEl    = document.getElementById('emailInput');
+  var submitBtn  = document.getElementById('submitBtn');
+  var formErr    = document.getElementById('formErr');
+  var stateForm  = document.getElementById('stateForm');
+  var stateCard  = document.getElementById('stateCard');
+  var liveCount  = document.getElementById('liveCount');
+  var posNum     = document.getElementById('posNum');
+  var progFill   = document.getElementById('progFill');
+  var progLabel  = document.getElementById('progLabel');
+  var refInput   = document.getElementById('refLinkInput');
+  var copyBtn    = document.getElementById('copyBtn');
+  var waShareBtn = document.getElementById('waShareBtn');
+  var stakeCount = document.getElementById('stakeCount');
+  var stakeProgFill = document.getElementById('stakeProgFill');
+
+  var urlParams = new URLSearchParams(window.location.search);
+  var refCode   = urlParams.get('ref') || '';
+
+  /* ── EMAIL VALIDATION ── */
+  var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  emailEl.addEventListener('input', function(){
+    var v = emailEl.value.trim();
+    if(!v.length){ emailEl.classList.remove('valid','invalid'); return; }
+    if(emailRe.test(v)){ emailEl.classList.add('valid'); emailEl.classList.remove('invalid'); }
+    else{ emailEl.classList.add('invalid'); emailEl.classList.remove('valid'); }
+  });
+
+  /* ── LIVE COUNT ── */
+  function fetchCount(){
+    fetch(API_BASE + '/api/waitlist/count')
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        var n = d.count || d.total || 0;
+        updateCountDisplay(n);
+      })
+      .catch(function(){});
+  }
+
+  function updateCountDisplay(n){
+    if(n > 0){
+      liveCount.innerHTML = '<strong>' + n.toLocaleString('en-IN') + ' people</strong> have joined the waitlist.';
+    }
+    stakeCount.textContent = n > 0 ? n.toLocaleString('en-IN') : '—';
+    var pct = Math.min((n / 1000) * 100, 100);
+    stakeProgFill.style.width = pct + '%';
+  }
+
+  fetchCount();
+  setInterval(fetchCount, 30000);
+
+  /* ── FORM SUBMIT ── */
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var email = emailEl.value.trim();
+    if(!emailRe.test(email)){ showErr('Please enter a valid email address.'); return; }
+    setLoading(true);
+
+    var payload = { email: email, source: 'waitlist' };
+    if(refCode) payload.referred_by = refCode;
+
+    fetch(API_BASE + '/api/waitlist', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(function(r){
+      return r.json().catch(function(){ return {}; }).then(function(data){
+        if(r.ok || r.status === 409){
+          showCard(data);
+          setLoading(false);
+          return;
+        }
+        var msg = data && data.message ? data.message : 'Something went wrong. Please try again.';
+        showErr(msg);
+        setLoading(false);
+      });
+    })
+    .catch(function(){
+      showErr('Something went wrong. Please try again.');
+      setLoading(false);
+    });
+  });
+
+  function setLoading(on){
+    submitBtn.disabled = on;
+    submitBtn.textContent = on ? 'Joining…' : 'Claim My Spot';
+  }
+
+  function showErr(msg){
+    formErr.textContent = msg;
+    formErr.style.display = 'block';
+  }
+
+  /* ── SHOW POSITION CARD ── */
+  function showCard(data){
+    var position  = data.position || 1;
+    var myRefCode = data.referral_code || data.code || '';
+    var totalCount= data.count || 0;
+
+    var blockedEl = document.getElementById('referralBlockedNote');
+    if(blockedEl){
+      blockedEl.style.display = data.referral_blocked === true ? 'block' : 'none';
+    }
+
+    if(totalCount) updateCountDisplay(totalCount);
+
+    posNum.textContent = position.toLocaleString('en-IN');
+
+    var pct = Math.min((position / 1000) * 100, 100);
+    progLabel.textContent = position.toLocaleString('en-IN') + ' / 1,000';
+    setTimeout(function(){ progFill.style.width = pct + '%'; }, 100);
+
+    /* Share links use current origin so production (pataqr.com) matches deployed URLs. */
+    var refUrl = window.location.origin + '/waitlist?ref=' + encodeURIComponent(myRefCode);
+    refInput.value = refUrl;
+
+    var waText = encodeURIComponent(
+      'I just joined the PATA waitlist — QR tag that calls you anonymously. ' +
+      'Top 1,000 get both products free. Join here: ' + refUrl
+    );
+    waShareBtn.href = 'https://wa.me/?text=' + waText;
+
+    var rankApiEl = document.getElementById('rankApiUrl');
+    if(rankApiEl && myRefCode){
+      rankApiEl.textContent =
+        window.location.origin + '/api/waitlist/position?ref=' + encodeURIComponent(myRefCode);
+    }
+
+    if(myRefCode){
+      sessionStorage.setItem('pata_position', position);
+      sessionStorage.setItem('pata_ref', myRefCode);
+    }
+
+    stateForm.style.display = 'none';
+    stateCard.style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /* expose for console preview during development */
+  window.showCard = showCard;
+
+  /* ── COPY REFERRAL LINK ── */
+  copyBtn.addEventListener('click', function(){
+    var val = refInput.value;
+    if(!val) return;
+    if(navigator.clipboard){
+      navigator.clipboard.writeText(val).then(showCopied).catch(function(){ fallbackCopy(val); });
+    } else { fallbackCopy(val); }
+  });
+
+  function fallbackCopy(text){
+    refInput.select();
+    try{ document.execCommand('copy'); showCopied(); }catch(e){}
+  }
+
+  function showCopied(){
+    copyBtn.textContent = 'Copied!';
+    copyBtn.classList.add('copied');
+    setTimeout(function(){ copyBtn.textContent = 'Copy'; copyBtn.classList.remove('copied'); }, 2000);
+  }
+
+  /* ── RETURNING USER — refresh live position ── */
+  var savedPos  = sessionStorage.getItem('pata_position');
+  var savedCode = sessionStorage.getItem('pata_ref');
+  if(savedCode){
+    // Try to fetch the latest position from the backend using the referral code.
+    fetch(API_BASE + '/api/waitlist/position?ref=' + encodeURIComponent(savedCode))
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(data){
+        if(data && data.position && data.referral_code){
+          showCard(data);
+        }else if(savedPos){
+          // Fallback to last known local value if API fails or not found.
+          showCard({ position: parseInt(savedPos, 10), referral_code: savedCode, count: 0 });
+        }
+      })
+      .catch(function(){
+        if(savedPos){
+          showCard({ position: parseInt(savedPos, 10), referral_code: savedCode, count: 0 });
+        }
+      });
+  }
+
+})();
+</script>
+
+</body>
+</html>

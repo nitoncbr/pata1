@@ -1,0 +1,13 @@
+# Railway — https://docs.railway.com/reference/config-as-code
+# Settings here override the Railway dashboard for each deploy.
+
+[build]
+# Railpack (default) auto-detects Node.js from package.json + package-lock.json
+builder = "RAILPACK"
+
+[deploy]
+startCommand = "npm start"
+healthcheckPath = "/health"
+# Seconds to wait for /health to return 200 (cold start / npm install on first deploy)
+healthcheckTimeout = 120
+restartPolicyType = "ON_FAILURE"
