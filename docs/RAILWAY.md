@@ -26,6 +26,7 @@ In the service → **Variables**, add:
 | `NODE_ENV` | `production` | Yes |
 | `SUPABASE_URL` | `https://xxxxx.supabase.co` | Yes |
 | `SUPABASE_SERVICE_KEY` | `eyJ...` (service role, server-only) | Yes |
+| `ENCRYPTION_KEY` | 64-char hex (32 bytes) — see `.env.example` | Yes |
 | `PUBLIC_SITE_URL` | `https://pataqr.com` or your Railway URL first | Recommended |
 | `RESEND_API_KEY` | `re_...` | Optional (emails skipped if empty) |
 

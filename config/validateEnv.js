@@ -6,7 +6,12 @@ function validateProductionEnv() {
     return;
   }
 
-  const required = ['SUPABASE_URL', 'SUPABASE_SERVICE_KEY'];
+  const required = [
+    'SUPABASE_URL',
+    'SUPABASE_SERVICE_KEY',
+    // Loaded at startup via activation routes → utils/encryption.js (32 bytes; hex or UTF-8)
+    'ENCRYPTION_KEY',
+  ];
   const missing = required.filter((key) => !process.env[key]);
 
   if (missing.length > 0) {

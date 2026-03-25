@@ -35,6 +35,11 @@ app.use('/api/twilio', twilioRoutes);
 app.use('/api/call', callRoutes);
 app.use('/api/waitlist', waitlistRoutes);
 
+// Root: no public/index.html — send visitors to the waitlist
+app.get('/', (req, res) => {
+  res.redirect(302, '/waitlist');
+});
+
 app.get('/waitlist', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'waitlist.html'));
 });
