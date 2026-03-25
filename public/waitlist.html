@@ -184,6 +184,12 @@ nav{
   margin-top:10px;font-size:12px;
   color:var(--error);text-align:center;display:none;
 }
+.verify-notice{
+  margin-top:14px;padding:14px 16px;font-size:13px;line-height:1.5;
+  color:rgba(240,237,230,0.75);text-align:center;
+  border:1px solid rgba(201,151,58,0.25);border-radius:12px;
+  background:rgba(201,151,58,0.06);max-width:28em;margin-left:auto;margin-right:auto;
+}
 
 /* Trust chips */
 .trust-row{
@@ -558,6 +564,9 @@ footer{
         <button type="submit" id="submitBtn">Claim My Spot</button>
       </div>
       <p class="form-err" id="formErr" role="alert"></p>
+      <p class="verify-notice" id="verifyNotice" role="status" style="display:none;">
+        Check your inbox and click the confirmation link. Your spot is not saved until you confirm.
+      </p>
     </form>
 
     <div class="trust-row">
@@ -888,6 +897,21 @@ footer{
 
   var urlParams = new URLSearchParams(window.location.search);
   var refCode   = urlParams.get('ref') || '';
+  var welcome   = urlParams.get('welcome');
+  var verifyNotice = document.getElementById('verifyNotice');
+
+  /* After email verification: land with ?ref=CODE&welcome=1 */
+  if(welcome === '1' && refCode){
+    var rb = urlParams.get('referral_blocked') === '1';
+    history.replaceState({}, '', window.location.pathname + '?ref=' + encodeURIComponent(refCode) + (rb ? '&referral_blocked=1' : ''));
+    fetch(API_BASE + '/api/waitlist/position?ref=' + encodeURIComponent(refCode))
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(data){
+        if(data && data.position && data.referral_code){
+          showCard({ position: data.position, referral_code: data.referral_code, referral_blocked: rb, count: 0 });
+        }
+      });
+  }
 
   /* ── EMAIL VALIDATION ── */
   var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -938,6 +962,12 @@ footer{
     })
     .then(function(r){
       return r.json().catch(function(){ return {}; }).then(function(data){
+        if(r.ok && data.verify_email){
+          formErr.style.display = 'none';
+          if(verifyNotice) verifyNotice.style.display = 'block';
+          setLoading(false);
+          return;
+        }
         if(r.ok || r.status === 409){
           showCard(data);
           setLoading(false);
@@ -1035,7 +1065,8 @@ footer{
   /* ── RETURNING USER — refresh live position ── */
   var savedPos  = sessionStorage.getItem('pata_position');
   var savedCode = sessionStorage.getItem('pata_ref');
-  if(savedCode){
+  var skipReturningPosition = (welcome === '1' && refCode);
+  if(savedCode && !skipReturningPosition){
     // Try to fetch the latest position from the backend using the referral code.
     fetch(API_BASE + '/api/waitlist/position?ref=' + encodeURIComponent(savedCode))
       .then(function(r){ return r.ok ? r.json() : null; })

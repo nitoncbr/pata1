@@ -108,4 +108,34 @@ describe('POST /api/waitlist', () => {
     expect(res.status).toBe(400);
     expect(mockFrom).not.toHaveBeenCalled();
   });
+
+  test('200 with verify_email pending signup', async () => {
+    mockFrom.mockImplementation((table) => {
+      if (table === 'waitlist') {
+        return {
+          select: () => ({
+            eq: () => ({
+              maybeSingle: () =>
+                Promise.resolve({ data: null, error: { code: 'PGRST116' } }),
+            }),
+          }),
+        };
+      }
+      if (table === 'waitlist_pending') {
+        return {
+          upsert: () =>
+            Promise.resolve({ data: {}, error: null }),
+        };
+      }
+      return { select: () => ({}) };
+    });
+
+    const res = await request(makeApp())
+      .post('/api/waitlist')
+      .send({ email: 'real@example.com' });
+
+    expect(res.status).toBe(200);
+    expect(res.body.verify_email).toBe(true);
+    expect(res.body.message).toMatch(/check your email/i);
+  });
 });

@@ -6,6 +6,7 @@
 
 1. Ensure the **`waitlist`** table exists with columns used by the API (see `CLAUDE.md` / `pata_cursor_prompt.txt`).
 2. Run **`sql/waitlist_signup_ip.sql`** in the Supabase SQL editor so `signup_ip` exists (self-referral protection).
+3. Run **`sql/waitlist_pending.sql`** so **email confirmation** works (signups stay pending until the user clicks the link; fake addresses never join the waitlist).
 3. Confirm **Row Level Security** matches your threat model (service role bypasses RLS; if you ever use the anon key from the browser, lock down policies).
 
 ## 2. Environment variables (production)
